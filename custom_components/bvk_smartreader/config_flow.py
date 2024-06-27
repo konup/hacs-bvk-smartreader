@@ -38,6 +38,7 @@ class BvkSmartReaderOptionsFlowHandler(config_entries.OptionsFlow):
             data_schema=vol.Schema({
                 vol.Required(CONF_USERNAME, default=self.config_entry.data.get(CONF_USERNAME)): str,
                 vol.Required(CONF_PASSWORD, default=self.config_entry.data.get(CONF_PASSWORD)): str,
-                vol.Required(CONF_UPDATE_INTERVAL, default=self.config_entry.data.get(CONF_UPDATE_INTERVAL, 8)): vol.All(vol.Coerce(int), vol.Range(min=1))
+                #vol.Required(CONF_UPDATE_INTERVAL, default=self.config_entry.data.get(CONF_UPDATE_INTERVAL, 8)): vol.All(vol.Coerce(int), vol.Range(min=1))
+                vol.Required(CONF_UPDATE_INTERVAL, default=self.config_entry.options.get(CONF_UPDATE_INTERVAL, 8)): vol.All(vol.Coerce(int), vol.Range(min=1))
             })
         )

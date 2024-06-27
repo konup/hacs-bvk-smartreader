@@ -4,7 +4,7 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .const import DOMAIN
+from .const import DOMAIN, CONF_UPDATE_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -19,6 +19,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     script_path = hass.config.path('custom_components/bvk_smartreader/getBvkSuezData.sh')
     if os.path.exists(script_path):
         os.chmod(script_path, 0o755)
+
+    update_interval = entry.options.get(CONF_UPDATE_INTERVAL, 8)
+    _LOGGER.debug(f"Setting up entry with update interval: {update_interval} hours")
 
     hass.async_create_task(
         hass.config_entries.async_forward_entry_setup(entry, "sensor")

@@ -41,7 +41,8 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 async def async_setup_entry(hass, entry, async_add_entities):
     username = entry.data[CONF_USERNAME]
     password = entry.data[CONF_PASSWORD]
-    update_interval = entry.data.get(CONF_UPDATE_INTERVAL, 8)
+    #update_interval = entry.data.get(CONF_UPDATE_INTERVAL, 8)
+    update_interval = entry.options.get(CONF_UPDATE_INTERVAL, 8)  # Use options for update interval
     days = 1  # Default value or load from entry if set
 
     water_consumption_sensor = WaterConsumptionSensor(hass, username, password, days, update_interval)
